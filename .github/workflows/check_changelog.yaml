@@ -1,0 +1,17 @@
+name: Check ChangeLog
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - ready_for_review
+          
+jobs:
+  check_changelog:
+    name: "Check ChangeLog"
+    runs-on: [self-hosted, lightweight ]
+
+    steps:
+      - uses: tripledotstudios/platform-actions/check_changelog@main
+
