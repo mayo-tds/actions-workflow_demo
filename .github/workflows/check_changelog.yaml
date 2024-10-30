@@ -10,7 +10,7 @@ on:
 jobs:
   check_changelog:
     name: "Check ChangeLog"
-    runs-on: [self-hosted, lightweight ]
+    runs-on: [ubuntu-latest]
 
     steps:
       - uses: tripledotstudios/platform-actions/check_changelog@main
