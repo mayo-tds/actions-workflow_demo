@@ -1,4 +1,5 @@
 name: Check ChangeLog
+run-name: Check ChangeLog!
 
 on:
   pull_request:
