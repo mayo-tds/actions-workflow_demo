@@ -13,6 +13,10 @@ runs:
 
     - name: Check ChangeLog
       run: |
+        if echo "${{ github.event.pull_request.title }}" | grep -q "\[DEV\]"; then
+          exit 0
+        fi
+
         if ! echo "${{ github.event.pull_request.title }}" | grep -q "\[DEV\]"; then
           PR_CHANGED_FILES=$(git --no-pager diff --name-only "origin/${{ github.base_ref }}...origin/${{ github.head_ref }}")
           if echo "$PR_CHANGED_FILES" | grep -q "CHANGELOG.md"; then
