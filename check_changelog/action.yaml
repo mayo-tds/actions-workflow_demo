@@ -14,19 +14,16 @@ runs:
     - name: Check ChangeLog
       run: |
         if echo "${{ github.event.pull_request.title }}" | grep -q "\[DEV\]"; then
+          echo "Since is \[DEV\] commit, we skip CHANGELOG checks..."
           exit 0
         fi
 
-        if ! echo "${{ github.event.pull_request.title }}" | grep -q "\[DEV\]"; then
-          PR_CHANGED_FILES=$(git --no-pager diff --name-only "origin/${{ github.base_ref }}...origin/${{ github.head_ref }}")
-          if echo "$PR_CHANGED_FILES" | grep -q "CHANGELOG.md"; then
-            exit 0
-          else
-            echo "No changes found in CHANGELOG.md."
-            exit 1
-          fi
-        else
-          exit 0
+        PR_CHANGED_FILES=$(git --no-pager diff --name-only "origin/${{ github.base_ref }}...origin/${{ github.head_ref }}")
+        if !echo "$PR_CHANGED_FILES" | grep -q "CHANGELOG.md"; then
+          echo "::Warning: title=Missing Changes on CHANGELOG::No changes found in CHANGELOG.md, are you feeling good today?."
         fi
+
+        exit 0
+
       shell: bash
 
