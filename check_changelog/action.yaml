@@ -21,7 +21,7 @@ runs:
 
         PR_CHANGED_FILES=$(git --no-pager diff --name-only "origin/${{ github.base_ref }}...origin/${{ github.head_ref }}")
         if ! echo "$PR_CHANGED_FILES" | grep -q "CHANGELOG.md"; then
-          echo "::Warning: title=Missing Changes on CHANGELOG::No changes found in CHANGELOG.md, are you feeling good today?."
+          echo "::warning title=Missing Changes on CHANGELOG::No changes found in CHANGELOG.md, are you feeling good today?."
         fi
 
         exit 0
