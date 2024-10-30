@@ -12,7 +12,6 @@ runs:
         fetch-depth: 0
 
     - name: Check ChangeLog
-    - run-name: Check ChangeLog!!
       run: |
         if echo "${{ github.event.pull_request.title }}" | grep -q "\[DEV\]"; then
           echo "Since is \[DEV\] commit, we skip CHANGELOG checks..."
