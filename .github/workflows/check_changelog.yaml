@@ -13,6 +13,6 @@ jobs:
     runs-on: [ubuntu-latest]
 
     steps:
-      - uses: workflows_demo/platform-actions/check_changelog@main
+      - uses: mayo-tds/workflows_demo/check_changelog@main
         with:
           gh_token: ${{ secrets.TDS_MAYO_GITHUB_TOKEN }}
