@@ -17,4 +17,8 @@ jobs:
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
       - run: echo " - - - - "
+      - name: Create annotation for build error
+        run: echo "::error file=app.js,line=1::Missing semicolon"
+      - run: echo "::notice file=app.js,line=1,col=5,endColumn=7::Missing semicolon"
+      
 
