@@ -20,5 +20,6 @@ jobs:
     steps:
       - uses: mayo-tds/workflows_demo/check_changelog@master
         with:
-          gh_token: ${{ secrets.TDS_MAYO_GITHUB_TOKEN }}
+          gh_token: ${{ github.token }}
+          zgh_token: ${{ secrets.TDS_MAYO_GITHUB_TOKEN }}
     
