@@ -1,7 +1,7 @@
-name: PR Comment A!
+name: Comment on Pull Request!
 branding:
   icon: 'message-square'
-  color: 'blue'
+  color: 'olive'
 
 inputs:
   gh_token:

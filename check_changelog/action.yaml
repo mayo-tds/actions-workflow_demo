@@ -29,16 +29,16 @@ runs:
         fi
       shell: bash
 
-    - uses: mayo-tds/workflows_demo/pr_comment@master  # Reemplaza con tu action
+    - uses: mayo-tds/workflows_demo/comment_pr@master  
       if: steps.check_changelog.outputs.changelog_missing == 'true'
       with:
         gh_token: ${{ inputs.gh_token }}
         comment_body: |
-          ⚠️ ⚠️ ⚠️ ⚠️ ⚠️️   **Warning: CHANGELOG not updated** ⚠️ ⚠️ ⚠️ ⚠️ ⚠️
-            
-          No changes found in `CHANGELOG.md`. Please:
+          ⚠ **CHANGELOG Update Required** ⚠
+
+          No changes found in `CHANGELOG.md`. Please either:
+
           - [ ] Add your changes to the CHANGELOG
-          - [ ] If this change doesn't require a CHANGELOG entry, add [DEV] to the PR title
-          
-          PR #${{ github.event.pull_request.number }}
-          
+          - [ ] Add [DEV] prefix to your PR title or commit messages if no CHANGELOG entry is needed
+
+          > See our [Changelog Guidelines](https://tripledotstudios.atlassian.net/wiki/spaces/RCTR/pages/3735126037/Changelog+Guidelines) for more information.
