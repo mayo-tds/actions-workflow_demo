@@ -31,14 +31,14 @@ runs:
 
     - uses: mayo-tds/workflows_demo/pr_comment@v1  # Reemplaza con tu action
       if: steps.check_changelog.outputs.changelog_missing == 'true'
-        with:
-          gh_token: ${{ inputs.gh_token }}
-          comment_body: |
-            ⚠️ **Warning: CHANGELOG not updated**
+      with:
+        gh_token: ${{ inputs.gh_token }}
+        comment_body: |
+          ⚠️ **Warning: CHANGELOG not updated**
             
-            No changes found in `CHANGELOG.md`. Please:
-            - [ ] Add your changes to the CHANGELOG
-            - [ ] If this change doesn't require a CHANGELOG entry, add [DEV] to the PR title
-            
-            PR #${{ github.event.pull_request.number }}
-            
+          No changes found in `CHANGELOG.md`. Please:
+          - [ ] Add your changes to the CHANGELOG
+          - [ ] If this change doesn't require a CHANGELOG entry, add [DEV] to the PR title
+          
+          PR #${{ github.event.pull_request.number }}
+          
