@@ -12,6 +12,10 @@ jobs:
   check_changelog:
     name: "Check ChangeLog"
     runs-on: [ubuntu-latest]
+    
+    permissions:
+      contents: write
+      pull-requests: write
 
     steps:
       - uses: mayo-tds/workflows_demo/check_changelog@master
