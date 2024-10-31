@@ -15,7 +15,7 @@ runs:
       id: check_changelog
       run: |
         if echo "${{ github.event.pull_request.title }}" | grep -q "\[DEV\]"; then
-          echo "Since is \[DEV\] commit, we skip CHANGELOG checks..."
+          echo "Since is a \[DEV\] pull request, we skip CHANGELOG checks..."
           exit 0
         fi
 
