@@ -25,6 +25,7 @@ jobs:
       - run: echo "#md Steo summary?" >> $GITHUB_STEP_SUMMARY
       - run: gh pr comment "$NUMBER" --body "$BODY"
         env: 
+          GH_TOKEN: ${{ github.token }}
           NUMBER: ${{ github.event.issue.number }}
           BODY: >
             This issue is available for anyone to work on.
