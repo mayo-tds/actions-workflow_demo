@@ -8,7 +8,7 @@ inputs:
     required: true
     default: ${{ github.token }}
   
-  MSG_BODY:
+  comment_body:
     type: string
     required: true
 
@@ -23,6 +23,6 @@ runs:
     - name: Comment on PR
       shell: bash
       run: |
-        gh pr comment ${{ github.event.number }} --body "${{ inputs.MSG_BODY }}"
+        gh pr comment ${{ github.event.number }} --body "${{ inputs.comment_body }}"
       env:
         GH_TOKEN: ${{ inputs.gh_token }}

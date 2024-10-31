@@ -12,18 +12,33 @@ runs:
         fetch-depth: 0
 
     - name: Check ChangeLog
+      id: check_changelog
       run: |
         if echo "${{ github.event.pull_request.title }}" | grep -q "\[DEV\]"; then
           echo "Since is \[DEV\] commit, we skip CHANGELOG checks..."
+          echo "changelog_missing=false" >> $GITHUB_OUTPUT
           exit 0
         fi
 
         PR_CHANGED_FILES=$(git --no-pager diff --name-only "origin/${{ github.base_ref }}...origin/${{ github.head_ref }}")
         if ! echo "$PR_CHANGED_FILES" | grep -q "CHANGELOG.md"; then
-          echo "::warning title=Missing Changes on CHANGELOG::No changes found in CHANGELOG.md, are you feeling good today?."
+          echo "::warning title=Missing Changes on CHANGELOG::No changes found in CHANGELOG.md."
+          echo "changelog_missing=true" >> $GITHUB_OUTPUT
+        else
+          echo "changelog_missing=false" >> $GITHUB_OUTPUT 
         fi
-
-        exit 0
-
       shell: bash
 
+    - uses: mayo-tds/workflows_demo/pr_comment@v1  # Reemplaza con tu action
+      if: steps.check_changelog.outputs.changelog_missing == 'true'
+        with:
+          gh_token: ${{ inputs.gh_token }}
+          comment_body: |
+            ⚠️ **Warning: CHANGELOG not updated**
+            
+            No changes found in `CHANGELOG.md`. Please:
+            - [ ] Add your changes to the CHANGELOG
+            - [ ] If this change doesn't require a CHANGELOG entry, add [DEV] to the PR title
+            
+            PR #${{ github.event.pull_request.number }}
+            

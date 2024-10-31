@@ -1,4 +1,5 @@
 name: Comment as Action
+run-name: Comment wf!
 
 on:
   pull_request:
