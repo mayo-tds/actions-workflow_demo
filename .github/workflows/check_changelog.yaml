@@ -17,17 +17,18 @@ jobs:
       contents: write
       pull-requests: write
 
-    # - uses: tripledotstudios/platform-actions/check_changelog@RCTR-1932-Fix-check-changelog-workflow
     steps:
-      - uses: mayo-tds/workflows_demo/check_changelog@master
+      - name: Check changelog
+      # uses: tripledotstudios/platform-actions/check_changelog@RCTR-1932-Fix-check-changelog-workflow
+        uses: mayo-tds/workflows_demo/check_changelog@master
         with:
           # gh_token: ${{ secrets.TDS_AUTOBOT_GITHUB_TOKEN }}
           # gh_token: ${{ secrets.TDS_MAYO_GITHUB_TOKEN }}
           gh_token: ${{ github.token }}
 
-
-      # - uses: tripledotstudios/platform-actions/comment_on_pull_request@master
-      - uses: mayo-tds/workflows_demo/comment_on_pull_request@master
+      - name: If updates are missing, add a comment
+      # uses: tripledotstudios/platform-actions/comment_on_pull_request@master
+        uses: mayo-tds/workflows_demo/comment_on_pull_request@master
       if: steps.check_changelog.outputs.changelog_missing == 'true'
       with:
         gh_token: ${{ inputs.gh_token }}
