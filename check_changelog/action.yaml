@@ -29,7 +29,7 @@ runs:
         fi
       shell: bash
 
-    - uses: mayo-tds/workflows_demo/pr_comment@v1  # Reemplaza con tu action
+    - uses: mayo-tds/workflows_demo/pr_comment@master  # Reemplaza con tu action
       if: steps.check_changelog.outputs.changelog_missing == 'true'
       with:
         gh_token: ${{ inputs.gh_token }}
