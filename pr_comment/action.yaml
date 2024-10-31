@@ -15,6 +15,11 @@ inputs:
 runs:
   using: composite  
   steps:
+    - uses: actions/checkout@v4
+      with:
+        token: ${{ inputs.gh_token }}
+        fetch-depth: 0
+
     - name: Comment on PR
       shell: bash
       run: |
