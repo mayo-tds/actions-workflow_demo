@@ -24,18 +24,3 @@ runs:
           echo "changelog_missing=true" >> $GITHUB_OUTPUT
         fi
       shell: bash
-
-    - uses: mayo-tds/workflows_demo/comment_pullrequest@master  
-      if: steps.check_changelog.outputs.changelog_missing == 'true'
-      with:
-        gh_token: ${{ inputs.gh_token }}
-        comment_body: |
-          ### ⚠️ CHANGELOG Update Required ⚠️
-
-
-          No changes found in `CHANGELOG.md`. Please either:
-
-          - [ ] Add your changes to the CHANGELOG
-          - [ ] Add `[DEV]` prefix to your PR title or commit messages if no CHANGELOG entry is needed
-
-          > See our [Changelog Guidelines](https://tripledotstudios.atlassian.net/wiki/spaces/RCTR/pages/3735126037/Changelog+Guidelines) for more information.
