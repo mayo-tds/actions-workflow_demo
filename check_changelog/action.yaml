@@ -16,7 +16,6 @@ runs:
       run: |
         if echo "${{ github.event.pull_request.title }}" | grep -q "\[DEV\]"; then
           echo "Since is \[DEV\] commit, we skip CHANGELOG checks..."
-          echo "changelog_missing=false" >> $GITHUB_OUTPUT
           exit 0
         fi
 
@@ -24,8 +23,6 @@ runs:
         if ! echo "$PR_CHANGED_FILES" | grep -q "CHANGELOG.md"; then
           echo "::warning title=Missing Changes on CHANGELOG::No changes found in CHANGELOG.md."
           echo "changelog_missing=true" >> $GITHUB_OUTPUT
-        else
-          echo "changelog_missing=false" >> $GITHUB_OUTPUT 
         fi
       shell: bash
 
@@ -34,7 +31,7 @@ runs:
       with:
         gh_token: ${{ inputs.gh_token }}
         comment_body: |
-          ⚠ **CHANGELOG Update Required** ⚠
+          ⚠️ **CHANGELOG Update Required** ⚠️
 
           No changes found in `CHANGELOG.md`. Please either:
 
