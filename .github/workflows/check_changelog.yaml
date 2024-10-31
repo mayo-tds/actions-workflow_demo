@@ -13,14 +13,15 @@ jobs:
     runs-on: [self-hosted, lightweight ]
 
     steps:
-      - uses: tripledotstudios/platform-actions/check_changelog@main
+      # - uses: tripledotstudios/platform-actions/check_changelog@main
+      - uses: myo-tds/workflows_demo/check_changelog@main
         id: check_changelog_step
         with:
           gh_token: ${{ secrets.TDS_AUTOBOT_GITHUB_TOKEN }}
 
       
-      - uses: tripledotstudios/platform-actions/comment_on_pull_request@master
-        if: steps.check_changelog.outputs.changelog_missing == 'true'
+      # - uses: tripledotstudios/platform-actions/comment_on_pull_request@master
+      - uses: mayo-tds/workflows_demo/comment_on_pull_request@master
         with:
           gh_token: ${{ secrets.TDS_AUTOBOT_GITHUB_TOKEN }}
           comment_body: |
