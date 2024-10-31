@@ -25,7 +25,8 @@ runs:
         fi
       shell: bash
 
-    - uses: mayo-tds/workflows_demo/comment_pullrequest@master  
+    # - uses: tripledotstudios/platform-actions/comment_on_pull_request@master
+    - uses: mayo-tds/workflows_demo/comment_on_pull_request@master
       if: steps.check_changelog.outputs.changelog_missing == 'true'
       with:
         gh_token: ${{ inputs.gh_token }}
