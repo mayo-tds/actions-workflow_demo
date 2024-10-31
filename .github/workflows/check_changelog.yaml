@@ -18,8 +18,7 @@ jobs:
       pull-requests: write
 
     steps:
-      - uses: mayo-tds/workflows_demo/check_changelog@master
+      - uses: platform-actions/check_changelog@RCTR-1932-Fix-check-changelog-workflow
         with:
           gh_token: ${{ github.token }}
-          zgh_token: ${{ secrets.TDS_MAYO_GITHUB_TOKEN }}
     

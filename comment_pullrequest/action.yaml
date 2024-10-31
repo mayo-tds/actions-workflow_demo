@@ -1,7 +1,4 @@
 name: Comment on Pull Request!
-branding:
-  icon: 'message-square'
-  color: 'olive'
 
 inputs:
   gh_token:
@@ -20,7 +17,7 @@ runs:
         token: ${{ inputs.gh_token }}
         fetch-depth: 0
 
-    - name: Comment on PR
+    - name: Add comment on Current Pull Request
       shell: bash
       run: |
         gh pr comment ${{ github.event.number }} --body "${{ inputs.comment_body }}"
