@@ -22,3 +22,20 @@ jobs:
       - uses: mayo-tds/workflows_demo/check_changelog@master
         with:
           gh_token: ${{ secrets.TDS_MAYO_GITHUB_TOKEN }}
+
+
+      # - uses: tripledotstudios/platform-actions/comment_on_pull_request@master
+      - uses: mayo-tds/workflows_demo/comment_on_pull_request@master
+      if: steps.check_changelog.outputs.changelog_missing == 'true'
+      with:
+        gh_token: ${{ inputs.gh_token }}
+        comment_body: |
+          ### ⚠️ CHANGELOG Update Required ⚠️
+
+
+          No changes found in `CHANGELOG.md`. Please either:
+
+          - [ ] Add your changes to the CHANGELOG
+          - [ ] Add `[DEV]` prefix to your PR title or commit messages if no CHANGELOG entry is needed
+
+          > See our [Changelog Guidelines](https://tripledotstudios.atlassian.net/wiki/spaces/RCTR/pages/3735126037/Changelog+Guidelines) for more information.
