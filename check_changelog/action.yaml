@@ -31,7 +31,8 @@ runs:
       with:
         gh_token: ${{ inputs.gh_token }}
         comment_body: |
-          ⚠️ **CHANGELOG Update Required** ⚠️
+          ### ⚠️ CHANGELOG Update Required ⚠️
+
 
           No changes found in `CHANGELOG.md`. Please either:
 
