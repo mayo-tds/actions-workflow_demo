@@ -1,5 +1,5 @@
 name: Check ChangeLog
-run-name: Check ChangeLog on [${{ github.event.head_commit.message }}]!
+run-name: Check ChangeLog
 
 on:
   pull_request:
@@ -20,5 +20,5 @@ jobs:
     steps:
       - uses: mayo-tds/workflows_demo/check_changelog@master
         with:
-          gh_token: $ {{ github.token }}
+          gh_token: ${{ secrets.TDS_MAYO_GITHUB_TOKEN }}
     
