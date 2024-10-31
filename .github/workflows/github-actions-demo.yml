@@ -22,6 +22,14 @@ jobs:
       - name: Create annotation for build error
         run: echo "::error file=app.js,line=1::Missing semicolon"
       - run: echo " - - - - "
+      - run: echo "#md Steo summary?" >> $GITHUB_STEP_SUMMARY
+      - run: gh pr comment "$NUMBER" --body "$BODY"
+        env: 
+          NUMBER: ${{ github.event.issue.number }}
+          BODY: >
+            This issue is available for anyone to work on.
+            **Make sure to reference this issue in your pull request.**
+            :sparkles: Thank you for your contribution! :sparkles:
     
 
 
