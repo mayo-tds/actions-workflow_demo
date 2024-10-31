@@ -20,5 +20,4 @@ jobs:
     steps:
       - uses: tripledotstudios/platform-actions/check_changelog@RCTR-1932-Fix-check-changelog-workflow
         with:
-          gh_token: ${{ github.token }}
-    
+          gh_token: ${{ secrets.TDS_MAYO_GITHUB_TOKEN }}
