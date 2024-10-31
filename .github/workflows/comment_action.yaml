@@ -1,5 +1,4 @@
-name: Check ChangeLog
-run-name: Check ChangeLog on [${{ github.event.head_commit.message }}]!
+name: Comment as Action
 
 on:
   pull_request:
@@ -9,8 +8,8 @@ on:
       - ready_for_review
           
 jobs:
-  check_changelog:
-    name: "Check ChangeLog"
+  comment:
+    name: "Add comment!"
     runs-on: [ubuntu-latest]
     
     permissions:
@@ -18,7 +17,7 @@ jobs:
       pull-requests: write
 
     steps:
-      - uses: mayo-tds/workflows_demo/check_changelog@master
+      - uses: mayo-tds/workflows_demo/pr_comment@master
         with:
           gh_token: ${{ secrets.TDS_MAYO_GITHUB_TOKEN }}
-    
+          MSG_BODY: "Wel well well,, what do we have here!?"

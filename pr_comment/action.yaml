@@ -1,0 +1,23 @@
+name: PR Comment A!
+branding:
+  icon: 'message-square'
+  color: 'blue'
+
+inputs:
+  gh_token:
+    required: true
+    default: ${{ github.token }}
+  
+  MSG_BODY:
+    type: string
+    required: true
+
+runs:
+  using: composite  
+  steps:
+    - name: Comment on PR
+      shell: bash
+      run: |
+        gh pr comment ${{ github.event.number }} --body "${{ inputs.comment-body }}"
+      env:
+        GH_TOKEN: ${{ inputs.github-token }}
