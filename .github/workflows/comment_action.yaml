@@ -21,4 +21,4 @@ jobs:
       - uses: mayo-tds/workflows_demo/pr_comment@master
         with:
           gh_TOKEN: ${{ github.token }}
-          MSG_BODY: "Wel well well,, what do we have here!?"
+          comment_body: "Wel well well,, what do we have here!?"
