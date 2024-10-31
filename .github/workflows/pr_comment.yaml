@@ -10,6 +10,8 @@ jobs:
       contents: write
       pull-requests: write
     steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
       - name: Write Comment
         run: gh pr comment "$NUMBER" --body "$BODY"
         env:
