@@ -34,7 +34,7 @@ runs:
       with:
         gh_token: ${{ inputs.gh_token }}
         comment_body: |
-          ⚠️ **Warning: CHANGELOG not updated**
+          ⚠️ ⚠️ ⚠️ ⚠️ ⚠️️   **Warning: CHANGELOG not updated** ⚠️ ⚠️ ⚠️ ⚠️ ⚠️
             
           No changes found in `CHANGELOG.md`. Please:
           - [ ] Add your changes to the CHANGELOG
