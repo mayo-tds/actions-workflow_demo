@@ -18,10 +18,7 @@ jobs:
       pull-requests: write
 
     steps:
-      - name: Check Changelog Requirement 
-       id: check_changelog_step
-        # uses: tripledotstudios/platform-actions/check_changelog@master
-        # uses: tripledotstudios/platform-actions/check_changelog@RCTR-1932-Fix-check-changelog-workflow
+      - id: check_changelog_step
         uses: mayo-tds/workflows_demo/check_changelog@master
         with:
           # gh_token: ${{ secrets.TDS_AUTOBOT_GITHUB_TOKEN }}
@@ -31,7 +28,7 @@ jobs:
       - name: Debug Outputs
         run: |
          echo "Outputs from check_changelog step:"
-          echo "${{ toJson(steps.check_changelog.outputs) }}"
+          echo "${{ toJson(steps.check_changelog_step.outputs) }}"
        
       
       - name: Comment 
