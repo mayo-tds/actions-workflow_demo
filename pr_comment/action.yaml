@@ -18,6 +18,6 @@ runs:
     - name: Comment on PR
       shell: bash
       run: |
-        gh pr comment ${{ github.event.number }} --body "${{ inputs.comment-body }}"
+        gh pr comment ${{ github.event.number }} --body "${{ inputs.MSG_BODY }}"
       env:
-        GH_TOKEN: ${{ inputs.github-token }}
+        GH_TOKEN: ${{ inputs.gh_token }}
