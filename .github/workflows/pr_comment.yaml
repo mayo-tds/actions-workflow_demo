@@ -7,10 +7,14 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-    steps:
+    steps: 
+      - name: Check out repository code
+        uses: actions/checkout@v4
+ 
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
+          
       - name: Write Comment
         run: gh pr comment "$NUMBER" --body "$BODY"
         env:
