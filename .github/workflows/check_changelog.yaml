@@ -17,8 +17,8 @@ jobs:
       contents: write
       pull-requests: write
 
+    # - uses: tripledotstudios/platform-actions/check_changelog@RCTR-1932-Fix-check-changelog-workflow
     steps:
-      # - uses: tripledotstudios/platform-actions/check_changelog@RCTR-1932-Fix-check-changelog-workflow
       - uses: mayo-tds/workflows_demo/check_changelog@master
         with:
           # gh_token: ${{ secrets.TDS_AUTOBOT_GITHUB_TOKEN }}
