@@ -17,27 +17,39 @@ jobs:
       contents: write
       pull-requests: write
 
-    # - uses: tripledotstudios/platform-actions/check_changelog@RCTR-1932-Fix-check-changelog-workflow
     steps:
-      - uses: mayo-tds/workflows_demo/check_changelog@master
+      - name: Check Changelog Requirement 
+       id: check_changelog_step
+        # uses: tripledotstudios/platform-actions/check_changelog@master
+        # uses: tripledotstudios/platform-actions/check_changelog@RCTR-1932-Fix-check-changelog-workflow
+        uses: mayo-tds/workflows_demo/check_changelog@master
         with:
           # gh_token: ${{ secrets.TDS_AUTOBOT_GITHUB_TOKEN }}
           # gh_token: ${{ secrets.TDS_MAYO_GITHUB_TOKEN }}
           gh_token: ${{ github.token }}
+      
+      - name: Debug Outputs
+        run: |
+         echo "Outputs from check_changelog step:"
+          echo "${{ toJson(steps.check_changelog.outputs) }}"
+       
+      
+      - name: Comment 
+        # uses: tripledotstudios/platform-actions/comment_on_pull_request@RCTR-1932-Fix-check-changelog-workflow
+        # uses: tripledotstudios/platform-actions/comment_on_pull_request@master
+        uses: mayo-tds/workflows_demo/comment_on_pull_request@master
+        if: steps.check_changelog_step.outputs.changelog_missing == 'true'
+        with:
+            # gh_token: ${{ secrets.TDS_AUTOBOT_GITHUB_TOKEN }}
+            # gh_token: ${{ secrets.TDS_MAYO_GITHUB_TOKEN }}
+            gh_token: ${{ github.token }}
+            comment_body: |
+              ### ⚠️ CHANGELOG Update Required ⚠️
 
 
-      # - uses: tripledotstudios/platform-actions/comment_on_pull_request@master
-      - uses: mayo-tds/workflows_demo/comment_on_pull_request@master
-      if: steps.check_changelog.outputs.changelog_missing == 'true'
-      with:
-        gh_token: ${{ inputs.gh_token }}
-        comment_body: |
-          ### ⚠️ CHANGELOG Update Required ⚠️
+              No changes found in `CHANGELOG.md`. Please either:
 
+              - [ ] Add your changes to the CHANGELOG
+              - [ ] Add `[DEV]` prefix to your PR title or commit messages if no CHANGELOG entry is needed
 
-          No changes found in `CHANGELOG.md`. Please either:
-
-          - [ ] Add your changes to the CHANGELOG
-          - [ ] Add `[DEV]` prefix to your PR title or commit messages if no CHANGELOG entry is needed
-
-          > See our [Changelog Guidelines](https://tripledotstudios.atlassian.net/wiki/spaces/RCTR/pages/3735126037/Changelog+Guidelines) for more information.
+              > See our [Changelog Guidelines](https://tripledotstudios.atlassian.net/wiki/spaces/RCTR/pages/3735126037/Changelog+Guidelines) for more information.

@@ -3,6 +3,11 @@ inputs:
     type: string
     requiered: true
 
+outputs:
+  changelog_missing:
+    description: 'Indicates if a changelog entry is missing'
+    value: ${{ steps.check_changelog.outputs.result }}
+
 runs:
   using: composite
   steps:
@@ -18,7 +23,7 @@ runs:
           exit 0
         fi
 
-        PR_CHANGED_FILES=$(git --no-pager diff --name-only "origin/${{ github.base_ref }}...origin/${{ github.head_ref }}")
+        PR_CHANGED_FILES=$(git --no-pager diff --name-only "origin/${{ github.base_ref }}...origin/${{ github.head_ref }}")        
         if ! echo "$PR_CHANGED_FILES" | grep -q "CHANGELOG.md"; then
           echo "::warning title=CHANGELOG Update Required::No changes found in CHANGELOG.md..."
           echo "changelog_missing=true" >> $GITHUB_OUTPUT
