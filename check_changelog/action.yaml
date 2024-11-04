@@ -13,19 +13,26 @@ runs:
 
     - name: Check ChangeLog
       id: check_changelog
+      shell: bash
       run: |
+        # '[DEV]' is present on pull request title => No changelog update required
         if echo "${{ github.event.pull_request.title }}" | grep -q "\[DEV\]"; then
           exit 0
         fi
 
+        # CHANGELOG.md is present on updated files => All's right with the world...
         PR_CHANGED_FILES=$(git --no-pager diff --name-only "origin/${{ github.base_ref }}...origin/${{ github.head_ref }}")
-        if ! echo "$PR_CHANGED_FILES" | grep -q "CHANGELOG.md"; then
-          echo "::warning title=CHANGELOG Update Required::No changes found in CHANGELOG.md..."
-          echo "changelog_missing=true" >> $GITHUB_OUTPUT
+        if echo "$PR_CHANGED_FILES" | grep -q "CHANGELOG.md"; then
+            exit 0
         fi
-      shell: bash
 
-    - uses: mayo-tds/workflows_demo/comment_pullrequest@master  
+        # if we are here, means that a CHANGELOG update is missing...
+        # Set a warning and assign 'changelog_missing' variable to 'true'
+        echo "::warning title=CHANGELOG Update Required::No changes found in CHANGELOG.md..."
+        echo "changelog_missing=true" >> $GITHUB_OUTPUT
+
+    #- uses: tripledotstudios/platform-actions/comment_on_pull_request@master
+    - uses: mayo-tds/workflows_demo/comment_pullrequest@master
       if: steps.check_changelog.outputs.changelog_missing == 'true'
       with:
         gh_token: ${{ inputs.gh_token }}
