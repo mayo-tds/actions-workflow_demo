@@ -50,7 +50,8 @@ runs:
         echo "::warning title=CHANGELOG Update Required::No changes found in CHANGELOG.md..."
         echo "changelog_missing=true" >> $GITHUB_OUTPUT
 
-    - uses: tripledotstudios/platform-actions/comment_on_pull_request@main
+    #- uses: tripledotstudios/platform-actions/comment_on_pull_request@main
+    - uses: mayo-tds/workflows_demo/comment_pullrequest@master  
       if: steps.check_changelog.outputs.changelog_missing == 'true'
       with:
         gh_token: ${{ inputs.gh_token }}
