@@ -1,7 +1,7 @@
 inputs:
   gh_token:
     type: string
-    requiered: true
+    required: true
 
 runs:
   using: composite
@@ -11,8 +11,27 @@ runs:
         token: ${{ inputs.gh_token }}
         fetch-depth: 0
 
+    - name: Check for Existing Comment
+      id: check_comment
+      env:
+        GH_TOKEN: ${{ inputs.gh_token }}
+        PR_NUMBER: ${{ github.event.pull_request.number }}
+        REPO: ${{ github.repository }}
+      shell: bash
+      run: |
+        # Fetch existing comments on the PR
+        COMMENTS=$(curl -s -H "Authorization: Bearer $GH_TOKEN" \
+          "https://api.github.com/repos/$REPO/issues/$PR_NUMBER/comments")
+
+        # Check if the specific message already exists
+        if echo "$COMMENTS" | grep -q "⚠️ CHANGELOG Update Required ⚠️"; then
+          echo "Comment already exists. Exiting early."
+          echo "comment_exists=true" >> $GITHUB_OUTPUT
+        fi
+
     - name: Check ChangeLog
       id: check_changelog
+      if: steps.check_comment.outputs.comment_exists != 'true'
       shell: bash
       run: |
         # '[DEV]' is present on pull request title => No changelog update required
@@ -31,8 +50,7 @@ runs:
         echo "::warning title=CHANGELOG Update Required::No changes found in CHANGELOG.md..."
         echo "changelog_missing=true" >> $GITHUB_OUTPUT
 
-    #- uses: tripledotstudios/platform-actions/comment_on_pull_request@master
-    - uses: mayo-tds/workflows_demo/comment_pullrequest@master
+    - uses: tripledotstudios/platform-actions/comment_on_pull_request@main
       if: steps.check_changelog.outputs.changelog_missing == 'true'
       with:
         gh_token: ${{ inputs.gh_token }}
@@ -40,7 +58,7 @@ runs:
           ### ⚠️ CHANGELOG Update Required ⚠️
 
 
-          No changes found in `CHANGELOG.md`. Please either:
+          No changes found in \`CHANGELOG.md\`. Please either:
 
           - [ ] Add your changes to the CHANGELOG
           - [ ] Add `[DEV]` prefix to your PR title or commit messages if no CHANGELOG entry is needed
